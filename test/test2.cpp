@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	char buf[256] = "";
 	int i=0;
 
-	for( i=1; i<4000; i++){
+	for( i=1; i<100; i++){
 		strcpy( buf, "" );
 		if(RomanToArabia( i, buf ))printf( "%s \n", buf );
 	}
@@ -63,24 +63,30 @@ bool RomanToArabia( int value, char* result){
  */
 bool RomanToArabiaWork( int value, const char ones, const char fives, const char tens, char* result ){
 	
-	char buf[8] = "";
+	char buf[64] = "";
+	char* ptr = buf;
 	int i=0;
 
 	if( value < 4 ){
 		for( i=value; i>0; i-- ){
-			strncat( buf, &ones, 1 );
+			*ptr = ones;
+			ptr++;
 		}
 	}else if( value == 4 ){
-		strncat( buf, &ones, 1 );
-		strncat( buf, &fives, 1 );
+		*ptr = ones;
+		ptr++;
+		*ptr = fives;
 	}else if( value < 9){
-		strncat( buf, &fives, 1 );
+		*ptr = fives;
+		ptr++;
 		for( i=value-5; i>0; i-- ){
-			strncat( buf, &ones, 1 );
+			*ptr = ones;
+			ptr++;
 		}
 	}else{
-		strncat( buf, &ones, 1 );
-		strncat( buf, &tens, 1 );
+		*ptr = ones;
+		ptr++;
+		*ptr = tens;
 	}
 	
 	if( strcmp( buf, "" ) != 0 ){
