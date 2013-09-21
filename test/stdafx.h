@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <string.h>
-#include <math.h>
 #pragma warning(disable:4996)
 
 

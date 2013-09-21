@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	char buf[256] = "";
 	int i=0;
 
-	for( i=1; i<100; i++){
+	for( i=1; i<4000; i++){
 		strcpy( buf, "" );
 		if(RomanToArabia( i, buf ))printf( "%s \n", buf );
 	}
@@ -26,8 +26,8 @@ int _tmain(int argc, _TCHAR* argv[])
 /**
  *　アラビア数字をローマ数字に変換する関数
  */
-bool RomanToArabia( int value, char* result){
-
+bool RomanToArabia( int value, char* result)
+{
 	char buf[256] = "", buf2[256] = "";
 	int i=0,digit=0;
 	//オーバーフローしないように最後にダミーを入れる
@@ -61,11 +61,12 @@ bool RomanToArabia( int value, char* result){
 /**
  * １～９の数字を受け取った文字で変換する作業関数
  */
-bool RomanToArabiaWork( int value, const char ones, const char fives, const char tens, char* result ){
-	
-	char buf[64] = "";
-	char* ptr = buf;
+bool RomanToArabiaWork( int value, const char ones, const char fives, const char tens, char* result )
+{
+	char* ptr = result;
 	int i=0;
+
+	if( result == nullptr || value < 1 || value > 9 )return false;
 
 	if( value < 4 ){
 		for( i=value; i>0; i-- ){
@@ -76,6 +77,7 @@ bool RomanToArabiaWork( int value, const char ones, const char fives, const char
 		*ptr = ones;
 		ptr++;
 		*ptr = fives;
+		ptr++;
 	}else if( value < 9){
 		*ptr = fives;
 		ptr++;
@@ -87,14 +89,12 @@ bool RomanToArabiaWork( int value, const char ones, const char fives, const char
 		*ptr = ones;
 		ptr++;
 		*ptr = tens;
+		ptr++;
 	}
 	
-	if( strcmp( buf, "" ) != 0 ){
-		strcpy( result, buf );
-		return true;
-	}
+	*ptr = '\0';
 
-	return false;
+	return true;
 }
 
 
